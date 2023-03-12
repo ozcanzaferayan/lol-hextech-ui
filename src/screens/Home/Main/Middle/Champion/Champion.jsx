@@ -1,17 +1,19 @@
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
-import Text from "../../../../../components/Text";
-import Colors from "../../../../../constants/Colors";
+import Colors from "@constants/Colors";
 import { Audio } from "expo-av";
 import {
   ChampionContext,
   ChampionDispatcherContext,
-} from "../../../../../contexts/DataProviders/ChampionProvider";
+} from "@contexts/DataProviders/ChampionProvider";
+import Text from "@components/Text";
+import React, { useContext } from "react";
 
 const Champion = ({ champion }) => {
   const [sound, setSound] = React.useState();
   const setChampion = useContext(ChampionDispatcherContext);
+  const selectedChampion = useContext(ChampionContext);
   const { id, name, icon } = champion;
+  const isActive = selectedChampion.name === champion.name;
 
   React.useEffect(() => {
     return sound
@@ -26,7 +28,7 @@ const Champion = ({ champion }) => {
     setChampion(champion);
     const { sound } = await Audio.Sound.createAsync(
       // @ts-ignore
-      require("../../../../../../assets/sounds/champion_click.mp3")
+      require("@assets/sounds/champion_click.mp3")
     );
     // @ts-ignore
     setSound(sound);
@@ -34,7 +36,13 @@ const Champion = ({ champion }) => {
   };
   return (
     <TouchableOpacity key={id} style={styles.container} onPress={handlePress}>
-      <Image style={styles.image} source={{ uri: icon }} />
+      <Image
+        style={{
+          ...styles.image,
+          borderColor: isActive ? Colors.gold[100] : Colors.grey[150],
+        }}
+        source={{ uri: icon }}
+      />
       <Text style={styles.text}>{name}</Text>
     </TouchableOpacity>
   );
