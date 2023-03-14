@@ -5,12 +5,13 @@ import Name from './Name';
 import SummonerSpells from './SummonerSpells';
 
 const HeroItem = ({ hero = {} }) => {
+  const isActive = hero.championName === 'Selecting...';
   return (
     <View>
-      {hero.championName === 'Selecting...' && <AnimationBackground />}
+      {isActive && <AnimationBackground />}
       <View style={styles.container}>
         <SummonerSpells summonerSpells={hero?.summonerSpells} />
-        <Avatar avatar={hero.avatar} />
+        <Avatar avatar={hero.avatar} isActive={isActive} />
         <Name hero={hero} />
       </View>
     </View>

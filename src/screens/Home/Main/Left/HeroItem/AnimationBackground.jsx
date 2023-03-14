@@ -10,7 +10,7 @@ const AnimationBackground = () => {
     Animated.loop(
       Animated.timing(translateX, {
         toValue: 0,
-        duration: 2000,
+        duration: 4000,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
