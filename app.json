@@ -5,7 +5,7 @@
     "privacy": "public",
     "owner": "zaferayan",
     "version": "1.0.0",
-    "orientation": "landscape",
+    "orientation": "portait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

@@ -1,32 +1,50 @@
+import { Audio } from 'expo-av';
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { useContext } from 'react';
 import {
+  FlatList,
+  Image,
   StyleSheet,
   Text,
-  View,
-  Image,
-  FlatList,
   TouchableOpacity,
-} from "react-native";
-import React, { useContext } from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import Gradients from "../../../../constants/Gradients";
-import {
-  ChampionContext,
-  ChampionDispatcherContext,
-} from "../../../../contexts/DataProviders/ChampionProvider";
+  View,
+} from 'react-native';
+import Gradients from '../../../../constants/Gradients';
 import {
   AbilityContext,
   AbilityDispatcherContext,
-} from "../../../../contexts/DataProviders/AbilityProvider";
+} from '../../../../contexts/DataProviders/AbilityProvider';
+import {
+  ChampionContext,
+  ChampionDispatcherContext,
+} from '../../../../contexts/DataProviders/ChampionProvider';
 
 const Abilities = () => {
+  const [sound, setSound] = React.useState();
   const champion = useContext(ChampionContext);
-  console.log(champion.name);
   const ability = useContext(AbilityContext);
   const setAbility = useContext(AbilityDispatcherContext);
   const champ = champion;
   const currentAbility = ability;
-  const handlePress = (ability) => {
+
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          // @ts-ignore
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+  const handlePress = async (ability) => {
     setAbility(ability);
+    const { sound } = await Audio.Sound.createAsync(
+      // @ts-ignore
+      require('@assets/sounds/ability_click.mp3'),
+    );
+    // @ts-ignore
+    setSound(sound);
+    await sound.playAsync();
   };
   return (
     <View style={styles.container}>
@@ -57,7 +75,7 @@ const Abilities = () => {
         keyExtractor={(item) => item.toString()}
         numColumns={3}
         columnWrapperStyle={{
-          justifyContent: "flex-start",
+          justifyContent: 'flex-start',
           gap: 24,
         }}
         ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
@@ -70,9 +88,9 @@ export default Abilities;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
     rowGap: 24,
     columnGap: 24,
   },
@@ -80,8 +98,8 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 34,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     width: 32,
