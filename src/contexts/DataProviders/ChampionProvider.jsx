@@ -1,11 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
+import champions from '../../data/champions.json';
 
 export const ChampionContext = createContext(null);
 export const ChampionDispatcherContext = createContext(null);
-import champions from "../../data/champions.json";
 
 const ChampionProvider = ({ children }) => {
-  const [champion, setChampion] = useState(champions["Aatrox"]);
+  const [champion, setChampion] = useState(champions['Annie']);
 
   return (
     <ChampionContext.Provider value={champion}>

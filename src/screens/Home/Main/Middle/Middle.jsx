@@ -1,11 +1,11 @@
-import { FlatList, StyleSheet, View } from "react-native";
-import React from "react";
-import Roles from "./Roles/Roles";
-import champions from "../../../../data/champions.json";
-import Text from "../../../../components/Text";
-import Champion from "./Champion/Champion";
-import Footer from "./Footer/Footer";
-import { LinearGradient } from "expo-linear-gradient";
+import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import Text from '../../../../components/Text';
+import champions from '../../../../data/champions.json';
+import Champion from './Champion/Champion';
+import Footer from './Footer/Footer';
+import Roles from './Roles/Roles';
 
 const Middle = () => {
   return (
@@ -20,11 +20,12 @@ const Middle = () => {
           }}
           keyExtractor={(item) => item}
           numColumns={5}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          contentContainerStyle={{ padding: 10 }}
         />
         <LinearGradient
           style={styles.gradient}
-          colors={["#10131500", "#101315ff"]}
+          colors={['#10131500', '#101315ff']}
         />
       </View>
       <Footer />
@@ -36,14 +37,13 @@ export default Middle;
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: "center",
+    alignSelf: 'center',
     flex: 1.5,
-    gap: 8,
   },
   gradient: {
     height: 20,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
-    width: "100%",
+    width: '100%',
   },
 });
